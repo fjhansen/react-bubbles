@@ -31,10 +31,21 @@ const ColorList = ({ colors, updateColors }) => {
 
 
   const deleteColor = color => {
-    // make a delete request to delete this color
+    // code below was an accident. it added extra instances of colors on the color list when you tried to delete. its an interesting glitch so im keeping it in the comment for later use!
+
+    // axiosWithAuth()
+    // .put(`api/colors/${colorToEdit.id}`, {...colorToEdit})
+    // .then(result => {
+    //   updateColors(
+    //     [...colors.filter(color => color.id !== colorToEdit.id), result.data])
+    // })
+
+    axiosWithAuth()
+    .delete(`api/colors/${color.id}`)
+    .then(() => updateColors(colors.filter(col => col.id !== color.id)))
   };
 
-  
+
 
   return (
     <div className="colors-wrap">
