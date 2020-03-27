@@ -3,7 +3,8 @@ import api from "../utils/api"
 import { Form } from 'semantic-ui-react'
 
 const Login = props => {
-const initialState = {
+
+  const initialState = {
   username: "",
   password: ""
 }
@@ -26,35 +27,44 @@ const handleSubmit = event => {
   })
   .then(result => {
     console.log("LOGIN.JS RES",result)
+    localStorage.setItem("token", result.data.payload)
+    props.history.push("/protected")
+    setData(initialState)
+  })
+  .catch(error => {
+    console.log("ERROR LOGIN.JS: ",error)
+    setData(initialState) //to prevent bugs
   })
 }
 
   return (
-<>
-<form onSubmit={handleSubmit}>
-<input>
-type=""
-placeholder=""
-value=""
-name=""
-id=""
-onChange={}
-</input>
+  <>
+  <form onSubmit={handleSubmit}>
+  <input
+  type="text"
+  placeholder="User"
+  value={data.username}
+  name="username"
+  id="username"
+  onChange={handleChange}
+  />
 
-<input>
-type=""
-placeholder=""
-value=""
-name=""
-id=""
-onChange={}
-</input>
 
-<button type="submit">
-  Login
-</button>
-</form>
-</>
+
+  <input
+  type="password"
+  placeholder="Password"
+  value={data.password}
+  name="password"
+  id="password"
+  onChange={handleChange}
+  />
+
+  <button type="submit">
+    Login
+  </button>
+  </form>
+  </>
   );
 };
 
