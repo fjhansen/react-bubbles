@@ -1,13 +1,60 @@
 import React from "react";
+import api from "../utils/api"
+import { Form } from 'semantic-ui-react'
 
-const Login = () => {
-  // make a post request to retrieve a token from the api
-  // when you have handled the token, navigate to the BubblePage route
+const Login = props => {
+const initialState = {
+  username: "",
+  password: ""
+}
+
+const [data, setData] = React.useState(initialState)
+
+const handleChange = event => {
+  setData({
+    ...data,
+    [event.target.name]:[event.target.value]
+  })
+}
+
+const handleSubmit = event => {
+  event.preventDefault()
+  api()
+  .post('/api/login', {
+    username: data.username,
+    password: data.password
+  })
+  .then(result => {
+    console.log("LOGIN.JS RES",result)
+  })
+}
+
   return (
-    <>
-      <h1>Welcome to the Bubble App!</h1>
-      <p>Build a login page here</p>
-    </>
+<>
+<form onSubmit={handleSubmit}>
+<input>
+type=""
+placeholder=""
+value=""
+name=""
+id=""
+onChange={}
+</input>
+
+<input>
+type=""
+placeholder=""
+value=""
+name=""
+id=""
+onChange={}
+</input>
+
+<button type="submit">
+  Login
+</button>
+</form>
+</>
   );
 };
 
