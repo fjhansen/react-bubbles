@@ -1,6 +1,22 @@
 import React, { useState, useEffect } from "react";
 import { Pack } from "@potion/layout";
-import { Svg, Circle } from "@potion/element";
+import { Svg, Circle, Rect, Line, LineRadial, Area, AreaRadial, Ribbon } from "@potion/element";
+import { Lines } from 'react-svg-textures';
+
+const Texture = () => (
+  <svg width={200} height={200}>
+    <Line
+      id='pattern'
+      strokeWidth={10}
+      stroke='purple'
+      size={10}
+      orientation='diagonal'
+      background='blue'
+    />
+    <circle cx={100} cy={100} r={5} fill='url(#pattern)' />
+  </svg>
+);
+
 
 const Bubbles = ({ colors }) => {
   const [bubbleData, setBubbleData] = useState([]);
@@ -11,6 +27,8 @@ const Bubbles = ({ colors }) => {
     }));
     setBubbleData(generateBubbleData);
   }, [colors]);
+
+  
 
   return (
     <div className="bubble-wrap">
@@ -31,13 +49,15 @@ const Bubbles = ({ colors }) => {
               .map(({ x, y, r, key }, i) => {
                 if (i < colors.length) {
                   return (
-                    <Circle
+                    <Rect
                       key={key}
-                      cx={x}
-                      cy={y}
-                      r={r}
+                      x={x}
+                      y={y}
+                      height={r * 2}
+                      width={r * 1.3}
                       fill={colors[i].code.hex}
                     />
+                    
                   );
                 }
                 return null;
